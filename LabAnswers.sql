@@ -90,18 +90,29 @@ WHERE list.count = 1;
 # |:------------:|:------------:|:-----:|:------------:|:--------------:|
 # | Pokemon's name| Trainer's name| Current Level| Primary Type Name| Secondary Type Name|
 #
-SELECT p.name as 'Pokemon Name',
-       tr.trainername as 'Trainer Name',
+SELECT tr.trainername as 'Trainer Name',
+       p.name as 'Pokemon Name',
        pt.pokelevel as 'Level',
        ty.name as 'Primary Type',
-       ty.name as 'SecondaryType'
+       sty.name as 'SecondaryType',
+       pt.attack as 'Attack',
+       pt.spatk as 'Special Attack',
+       pt.speed as 'Speed'
 FROM pokemon_trainer pt
 JOIN pokemons p
 ON pt.pokemon_id = p.id
 JOIN trainers tr
 ON pt.trainerID = tr.trainerID
 JOIN types ty
-ON p.primary_type = ty.id;
+ON p.primary_type = ty.id
+JOIN types sty
+ON p.secondary_type = sty.id
+WHERE LENGTH(trainername) > 30
+ORDER BY LENGTH(trainername), attack DESC, speed DESC, spatk DESC
+LIMIT 10;
 #
 # Sort the data by finding out which trainer has the strongest pokemon so that this will act as a ranking of strongest
 # to weakest trainer. You may interpret strongest in whatever way you want, but you will have to explain your decision.
+
+# I decided to choose the trainer with the longest name, who has the the most aggressive fast pokemon.
+# Based on my query this is Junior Representative Ichi-Ichi.
