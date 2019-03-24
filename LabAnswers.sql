@@ -66,7 +66,7 @@ GROUP BY t.name;
   # (Hint: your query should not display a trainer
 SELECT COUNT(All *) as 'number of level 100 pokemon'
 FROM pokemon_trainer
-WHERE pokelevel IS NOT NULL
+WHERE pokelevel >= 100
 GROUP BY trainerID;
 
 # * How many pokemon only belong to one trainer and no other?
